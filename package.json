@@ -1,0 +1,44 @@
+{
+  "name": "coapi",
+  "version": "0.0.1",
+  "description": "Company API server",
+  "main": "server.js",
+  "scripts": {
+    "cloc": "cloc --exclude-dir=node_modules .",
+    "local": "NODE_ENV=local LOG=trace BLUEBIRD_DEBUG=1 BLUEBIRD_W_FORGOTTEN_RETURN=0 nodemon --harmony-destructuring server.js | bunyan",
+    "development": "NODE_ENV=development LOG=debug BLUEBIRD_DEBUG=1 BLUEBIRD_W_FORGOTTEN_RETURN=0 node --harmony-destructuring index.js",
+    "production": "NODE_ENV=production LOG=info BLUEBIRD_DEBUG=0 BLUEBIRD_W_FORGOTTEN_RETURN=0 node --harmony-destructuring index.js",
+    "test": "lab -e local"
+  },
+  "engines": {
+    "npm": ">=3.7.1",
+    "node": ">=5.6.0"
+  },
+  "contributors": [
+    {
+      "name": "Charles Hearn",
+      "email": "charles@alloy.co",
+      "url": "https://github.com/charleshearn"
+    }
+  ],
+  "license": "ISC",
+  "homepage": "https://alloy.co",
+  "dependencies": {
+    "bluebird": "^3.3.1",
+    "bunyan": "^1.6.0",
+    "config.json": "0.0.4",
+    "googleapis": "^2.1.7",
+    "joi": "^7.3.0",
+    "koa": "^1.1.2",
+    "koa-body": "^1.4.0",
+    "koa-bunyan-logger": "^1.3.0",
+    "koa-route": "^2.4.2",
+    "koa-validate": "^0.2.11",
+    "lodash": "^4.4.0",
+    "twilio": "^2.9.0"
+  },
+  "devDependencies": {
+    "code": "^2.1.0",
+    "lab": "^8.2.0"
+  }
+}
