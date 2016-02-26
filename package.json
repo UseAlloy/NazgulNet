@@ -19,7 +19,12 @@
       "name": "Charles Hearn",
       "email": "charles@alloy.co",
       "url": "https://github.com/charleshearn"
-    }
+    },
+	{
+	  "name": "Hassia Alzouma",
+      "email": "hgadoalz@gmail.com",
+      "url": "https://github.com/Hassia001"
+	}
   ],
   "license": "ISC",
   "homepage": "https://alloy.co",
