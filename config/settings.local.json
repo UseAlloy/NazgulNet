@@ -9,5 +9,8 @@
     },
     "google": {
       "key": "get_from_maintainer"
+    },
+    "mtaBusTime": {
+      "key": "get_from_maintainer"
     }
 }
