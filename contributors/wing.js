@@ -7,7 +7,6 @@ let mailgunDomain = Config.mailgun.domain;
 let mailgunKey = Config.mailgun.key;
 
 const Bluebird = require('bluebird');
-const Http = require('http');
 const KoaRoute = require('koa-route');
 const Mailgun = require('mailgun-js')({apiKey: mailgunKey, domain: mailgunDomain});
 const Request = require('request');
@@ -18,10 +17,12 @@ Bluebird.promisifyAll(Mailgun);
 Bluebird.promisifyAll(Request);
 
 app.use(KoaRoute.get('/searchArticle', function *() {
+    // Grab request parameters
     let term = this.request.query.term;
     let email = this.request.query.email;
     let name = this.request.query.name;
     
+    // Validate request parameters
     this.checkQuery('term').notEmpty();
     this.checkQuery('email').isEmail();
     this.checkQuery('name').notEmpty()
@@ -30,6 +31,7 @@ app.use(KoaRoute.get('/searchArticle', function *() {
         return;
     }
     
+    // Create parameters and options to query the NY Times Search Article API
     let parameters = {
         "q": term,
         "api-key": nyTimesKey
@@ -45,9 +47,12 @@ app.use(KoaRoute.get('/searchArticle', function *() {
         .bind(this)
         .then(function(response) {
             let json = JSON.parse(response.body)
+            
+            // Grab the url and headline from the first object (article) of the response
             let message = json.response.docs[0].web_url;
             let subject = json.response.docs[0].headline;
             
+            // Build Mailgun options to send email
             var options = {
                 from: mailgunFrom,
                 to: email,
