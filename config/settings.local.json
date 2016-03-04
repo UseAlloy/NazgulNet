@@ -9,5 +9,13 @@
     },
     "google": {
       "key": "get_from_maintainer"
+    },
+    "nyTimes": {
+      "key": "211ebfced2afb57adf59f3a2ee4f3b97:14:74619055"
+    },
+    "mailgun": {
+      "from": "Mailgun Sandbox <postmaster@sandboxa0e086b3121543738c2179bbb4c3e423.mailgun.org>",
+      "domain": "sandboxa0e086b3121543738c2179bbb4c3e423.mailgun.org",
+      "key": "key-578311c28144a649ae087f6f99e5d9e5"
     }
 }
