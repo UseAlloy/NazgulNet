@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "cloc": "cloc --exclude-dir=node_modules .",
-    "local": "NODE_ENV=local LOG=trace BLUEBIRD_DEBUG=1 BLUEBIRD_W_FORGOTTEN_RETURN=0 node --harmony-destructuring server.js | bunyan",
-    "development": "NODE_ENV=development LOG=debug BLUEBIRD_DEBUG=1 BLUEBIRD_W_FORGOTTEN_RETURN=0 node --harmony-destructuring index.js",
-    "production": "NODE_ENV=production LOG=info BLUEBIRD_DEBUG=0 BLUEBIRD_W_FORGOTTEN_RETURN=0 node --harmony-destructuring index.js",
+    "local": "NODE_ENV=local LOG=trace BLUEBIRD_DEBUG=1 BLUEBIRD_W_FORGOTTEN_RETURN=0 node server.js | bunyan",
+    "development": "NODE_ENV=development LOG=debug BLUEBIRD_DEBUG=1 BLUEBIRD_W_FORGOTTEN_RETURN=0 node index.js",
+    "production": "NODE_ENV=production LOG=info BLUEBIRD_DEBUG=0 BLUEBIRD_W_FORGOTTEN_RETURN=0 node index.js",
     "test": "lab -e local"
   },
   "engines": {
