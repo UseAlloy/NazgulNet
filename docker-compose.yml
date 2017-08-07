@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nodejs:
+    build: .
+    env_file: .env
+    volumes:
+        - ./:/app/src
+    ports:
+    - ${PORT}:${PORT}
+    deploy:
+      restart_policy:
+        condition: on-failure

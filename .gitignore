@@ -1,2 +1,8 @@
-
+.idea/**/*
+.env
+node_modules
+package-lock.json
+config/settings.json
 config/settings.dev.json
+docs/**/*
+!docs/.gitkeep

@@ -12,13 +12,12 @@
 
 var googleMaps = require('../services/googleMaps');
 var mtaBusTime = require('../services/mtaBusTime');
-var KoaRoute = require('koa-route');
-var app = require('../server');
+var KoaRoute = require('koa-router')();
 var _ = require('lodash');
 
 var DEFAULT_RADIUS = 300;
 
-app.use(KoaRoute.get('/bustime', function* () {
+KoaRoute.get('/bustime', function* () {
 
   var ctx = this;
 
@@ -129,4 +128,7 @@ app.use(KoaRoute.get('/bustime', function* () {
       console.error(error);
       this.body = error;
     });
-  }));
+});
+
+
+module.exports = KoaRoute;
