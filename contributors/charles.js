@@ -1,6 +1,6 @@
 'use strict';
 
-const KoaRoute = require('koa-route');
+const KoaRoute = require('koa-router')();
 const Bluebird = require('bluebird');
 const Config = require('config.json')('./config/settings.json', process.env.NODE_ENV);
 let app = require('../server');
@@ -17,7 +17,7 @@ var authToken = Config.twilio.token;
 var Twilio = require('twilio')(accountSid, authToken);
 Bluebird.promisifyAll(Twilio.messages);
 
-app.use(KoaRoute.get('/coolPics', function *() {
+KoaRoute.get('/coolPics', function *() {
   // Either use a passed "topic" or just send them cute dogs if they don't want to decide
   let topic = (this.request.query.topic) ? this.request.query.topic : 'cute dogs';
   let phone_number = this.request.query.phone_number;
@@ -65,4 +65,6 @@ app.use(KoaRoute.get('/coolPics', function *() {
       this.log.error(error);
       this.body = error;
     });
-}));
+});
+
+module.exports = KoaRoute;

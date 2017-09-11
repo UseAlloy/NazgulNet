@@ -5,15 +5,17 @@
 
 'use strict';
 
+require('dotenv').config();
+
 const Koa = require('koa');
 const KoaBunyanLogger = require('koa-bunyan-logger');
-const KoaRoute = require('koa-route');
-const Bluebird = require('bluebird');
-const app = Koa();
-const Config = require('config.json')('./config/settings.json', process.env.NODE_ENV);
+const KoaRoute = require('koa-router')();
 
+const app = new Koa();
+
+require('koa-validate')(app);
 app.use(require('koa-body')());
-app.use(require('koa-validate')());
+
 app.use(KoaBunyanLogger());
 app.use(KoaBunyanLogger.requestIdContext());
 app.use(KoaBunyanLogger.requestLogger());
@@ -22,16 +24,35 @@ app.use(KoaBunyanLogger.requestLogger());
 app.proxy = true;
 
 // Disable default error handling in favor of Bunyan plugin
-app.on('error', function() {});
+app.on('error', function () {
+});
 
 // Heathcheck returns memory stats
-app.use(KoaRoute.get('/healthcheck', function *() { this.body = process.memoryUsage(); }));
+KoaRoute.get('/healthcheck', function (ctx) {
+  ctx.body = process.memoryUsage();
+});
+
+app.use(KoaRoute.routes());
+app.use(KoaRoute.allowedMethods());
+
+/**
+ * load routes from contributors
+ */
+let contributors = require('./contributors');
+
+for (let contributor in contributors) {
+  if (typeof contributors[contributor] !== 'undefined') {
+    let obj = contributors[contributor];
+    app.use(obj.routes());
+    app.use(obj.allowedMethods());
+  }
+}
 
 // Allow config host to override auto interface detection
-const host = Config.app.host || require('lodash').filter(require('os').networkInterfaces().eth0, (nic) => (nic.family === 'IPv4' && nic.internal === false))[0].address;
-app.listen(Config.app.port, host);
-console.log({ host, port: Config.app.port }, 'Server ready - let\'s get this party started!');
+const host = process.env.HOST || require('lodash').filter(require('os').networkInterfaces().eth0, (nic) => (nic.family === 'IPv4' && nic.internal === false))[0].address;
+app.listen(process.env.PORT, host);
+console.log({host, port: process.env.PORT}, 'Server ready - let\'s get this party started!');
 
 module.exports = app;
 
-require('./contributors');
+
