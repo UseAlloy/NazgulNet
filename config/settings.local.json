@@ -12,5 +12,9 @@
     },
     "mtaBusTime": {
       "key": "get_from_maintainer"
+    },
+    "twitter": {
+      "key": "get_from_maintainer",
+      "secret": "get_from_maintainer",
     }
 }
