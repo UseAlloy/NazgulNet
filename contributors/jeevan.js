@@ -12,39 +12,39 @@ var Zomato = require('../services/zomato');
 var KoaRoute = require('koa-router')();
 var DarkSkyWeather = require('../services/darkSkyWeather');
 
-KoaRoute.get('/currentweather', async (ctx) => {
+KoaRoute.get('/foodandweather', async (ctx) => {
 
-    var weather = new DarkSkyWeather;
+    // Queries and assigns lat and lng values
     var lat = ctx.request.query.lat;
     var lng = ctx.request.query.lng;
-    weather.setLatitude(lat);
-    weather.setLongitude(lng);
-    console.log(lat +' ' + lng);
-
-    var food = new Zomato;
-    var resFood, resWeather;
-    food.setLatitude(lat);
-    food.setLongitude(lng);
-
-   
     
-    food.getNearbyRestaurants()
-    .then((res) => {
-      resFood = res;
-      console.log(resFood);
-      return weather.getWeather();
-    })
-    .then((res) => {
-      resWeather = res;
+    try {
+    // Sets weather values 
+      var weather = new DarkSkyWeather;
+      weather.setLatitude(lat);
+      weather.setLongitude(lng);
+      var dataWeather = await weather.getWeather();
+      var resWeather = dataWeather.hourly.summary;
       
-      console.log(resFood);
-      console.log(resWeather);
-    })
-    .catch(err => console.error(err));
+      // Sets restaurant values 
+      var food = new Zomato;
+      food.setLatitude(lat);
+      food.setLongitude(lng);
+      var resFood = await food.getNearbyRestaurants();
+    
+      while (resFood) {
 
-    ctx.body = {
-      resFood,
-      resWeather
+      }
+      ctx.body = {
+        resWeather,
+        resFood
+      };
+    }
+    catch (error) {
+      ctx.statusCode = 400;
+      ctx.body = {
+        error
+      }
     }
 });
 
