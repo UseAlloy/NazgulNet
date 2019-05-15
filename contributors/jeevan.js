@@ -31,13 +31,19 @@ KoaRoute.get('/foodandweather', async (ctx) => {
       food.setLatitude(lat);
       food.setLongitude(lng);
       var resFood = await food.getNearbyRestaurants();
-    
-      while (resFood) {
+      var country = resFood.location.country_name;
+      var city = resFood.location.city_name;
+      var place = resFood.popularity.subzone;
+      var bestCuisines = resFood.popularity.top_cuisines;
+      var nearby_restaurants = resFood.nearby_restaurants;
 
-      }
       ctx.body = {
-        resWeather,
-        resFood
+        Country: country,
+        City: city,
+        Place: place,
+        CurrentWeather: resWeather,
+        BestCuisines : bestCuisines,
+        Restaurants: nearby_restaurants 
       };
     }
     catch (error) {
