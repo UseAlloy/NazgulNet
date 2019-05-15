@@ -1,16 +1,16 @@
 {
     "app": {
       "host": "localhost",
-      "port": 8889
+      "port": 3000
     },
     "twilio": {
-      "sid": "get_from_maintainer",
-      "token": "get_from_maintainer"
+      "sid": "AC3f0cff7959acb7c4f5a3cd4e22f77360",
+      "token": "83737eff8b247b81d37bc9668c6492ca"
     },
     "google": {
-      "key": "get_from_maintainer"
+      "key": "AIzaSyBjmJccvYFg-I4jI47amShdzrshOnelhfA"
     },
     "mtaBusTime": {
-      "key": "get_from_maintainer"
+      "key": "a51900fd-9c21-4d67-a94b-05618cfd817c"
     }
 }
