@@ -28,7 +28,7 @@
     "config.json": "0.0.4",
     "dotenv": "^4.0.0",
     "emotional": "0.0.3",
-    "googleapis": "^2.1.7",
+    "googleapis": "^59.0.0",
     "joi": "^7.3.0",
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
